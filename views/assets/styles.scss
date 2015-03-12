@@ -1,0 +1,26 @@
+.add-card{
+	img{
+		float: left;
+		width: 200px;
+		height: auto;
+	}
+	padding-top: 20px;
+	border-top: 2px dashed black;
+	clear: both;
+}
+.search-return{
+	&:first-child{
+		border-top: 0;
+		padding-top: 0;
+	}
+}
+.backbtn{
+	display: block;
+	text-decoration: none;
+	margin: 15px 5px;
+	padding: 3px 5px; 
+	clear: both;
+	&:hover{
+		text-decoration: underline;
+	}
+}

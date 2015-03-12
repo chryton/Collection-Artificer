@@ -1,0 +1,25 @@
+doctype html
+html
+	head
+		title Search Return for #{searchterm}
+		include ./includes.jade
+	body
+		h1 Results for "#{searchterm}"
+		
+		.search-return
+			each card in cardResults
+				.add-card
+					h1 #{card.cardName}
+					img(src='#{card.imgname}')
+					form(name="cardSearch", action="/collection-save", method="post")
+						label(name="Quantity") Qty
+						input(type="text" name="qty")
+						input(type="hidden" name="uuid" value='#{card.uuid}')
+						select(name="set")
+							each val in card.sets
+								option(value='#{val}') #{val}
+						input(type="submit", value="Save")
+		
+		a(href="/search").backbtn &larr; Back to search
+		if dumpCheck == true
+			code #{dumpData}

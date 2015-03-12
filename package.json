@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Mauney",
+  "description": "Tasks needed for Collection Artificer",
+  "devDependencies": {
+    "express": "4.10.6",
+    "body-parser": "1.10.1",
+    "method-override": "2.3.1",
+    "mongodb": "1.4.29",
+    "jade": "1.9.1"
+  },
+  "license": "BSD-2-Clause",
+  "name": "CollectionArtificer",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node artificeserver.js"
+  },
+  "version": "0.0.5"
+}
