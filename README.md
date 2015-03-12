@@ -27,7 +27,7 @@ localhost
 
 ## Issues & TODO
 
-Please see #1
+Please see [#1](https://github.com/chryton/Collection-Artificer/issues/1) for my TODO list.
 
 ## Major Dependencies
 
