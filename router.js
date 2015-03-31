@@ -71,6 +71,21 @@ module.exports = function (app) {
 					}
 				}
 
+				// Set Back Button link
+				if (collectionSearched == myCollection){
+
+					jadeVars.backBtn = '/search-collection';
+
+				}else if(collectionSearched == mtgDB){
+
+					jadeVars.backBtn = '/search';
+
+				}else{
+
+					jadeVars.backBtn = '/';
+
+				}
+
 				jadeVars.searchterm = searchTerm;
 				jadeVars.dumpCheck = dumpCheck;
 				jadeVars.dumpData = data;
