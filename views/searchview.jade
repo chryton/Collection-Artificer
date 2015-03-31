@@ -4,18 +4,9 @@ html(lang="en")
     title!= pagetitle
     include ./includes.jade
   body
-    h1 Jade - node template engine
+    h1 Search Cards
     #container.col
-      if youAreUsingJade
-        p You are amazing
       else
-        p Get on it!
-      p.
-        Jade is a terse and simple
-        templating language with a
-        strong focus on performance
-        and powerful features.
-      h5!= heading
       form(name="cardSearch", action="/card-view", method="post")
         label(name="Searchterm") Card Search
         input(type="text", name="searchterm")#searchtermfield
