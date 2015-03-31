@@ -41,7 +41,7 @@ module.exports = function (app) {
 
 
 		MongoClient.connect(url, function(err, db) {
-			SearchModel.findDocuments(db, {name: searchTerm}, 'mtgcards', function(err, results){
+			SearchModel.findDocuments(db, {name: searchTerm}, collectionSearched, function(err, results){
 				return res.status(200).json(results);
 			});
 		});
@@ -55,7 +55,7 @@ module.exports = function (app) {
 			collectionSearched = req.body.collection;
 
 		MongoClient.connect(url, function(err, db) {
-			SearchModel.findDocuments(db, {name:  {'$regex': searchTerm}}, 'mtgcards', function(err, results){
+			SearchModel.findDocuments(db, {name:  {'$regex': searchTerm}}, collectionSearched, function(err, results){
 				console.log('---------');
 				var dumpCheck = false,
 					data = "words", // JSON.stringify(results);
@@ -75,10 +75,6 @@ module.exports = function (app) {
 				jadeVars.searchterm = searchTerm;
 				jadeVars.dumpCheck = dumpCheck;
 				jadeVars.dumpData = data;
-
-				console.log(jadeVars);
-
-				// TODO: Add Jade var for back to search button based on if is from collection search
 
 				return res.render('views/searchreturn.jade', jadeVars);
 
@@ -120,8 +116,8 @@ module.exports = function (app) {
 
 		MongoClient.connect(url, function(err, db){
 			if (!err){
-				CardModel.updateCollection(db, cardToUpdate, 'mtg_collection', function(err, results){
-					// return something or render success message
+				CardModel.updateCollection(db, cardToUpdate, myCollection, function(err, results){
+					// Add results rendering rules
 				})
 			}
 		})
