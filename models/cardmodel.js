@@ -1,9 +1,13 @@
 module.exports = {
 	saveData: function(db, data, collectionToSave, callback){
 
-		var collection = db.collection(collectionToSave);
-		var key = "_id";
-		delete data[0][key];
+		var collection = db.collection(collectionToSave),
+			removeKey = ['_id', 'printings', 'rulings', 'foreignNames', 'imageName'];
+
+		for (var i = 0; i < removeKey.length; i++){
+			delete data[0][removeKey[i]];
+		}
+
 		console.log('Save Data:');
 		console.log(data);
 		console.log('~~~~~~~/~^*()*^~/~~~~~~~~')
