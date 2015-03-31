@@ -67,8 +67,7 @@ module.exports = function (app) {
 					jadeVars.cardResults[i] = {
 						uuid: results[i]._id,
 						cardName: results[i].name,
-						sets: results[i].printings,
-						imgname: "http://mtgimage.com/card/"+results[i].imageName+".jpg",
+						sets: results[i].printings || results[i].ownedPrinting
 					}
 				}
 
