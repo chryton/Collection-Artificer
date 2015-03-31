@@ -20,19 +20,28 @@ module.exports = {
 
 	updateCollection: function(db, cardID, cardData, collectionToSearch, callback){
 		var collection = db.collection(collectionToSearch);
-		collection.update(
-			{"_id" : cardID},
-			{
-				$set: {}
-			}, 
-			function(err, result){
-				if(err){
-					console.log('~~~~~~~~~~~~~~')
-					console.log('Update Error:')
-					console.log(err)
-					console.log('~~~~~~~~~~~~~~')
+		if (cardData.qty > 0){
+			collection.update(
+				{"_id" : cardID},
+				{
+					$set: {
+						// This should be the card schema that we want saved no matter what
+					}
+				}, 
+				function(err, result){
+					if(err){
+						console.log('~~~~~~~~~~~~~~')
+						console.log('Update Error:')
+						console.log(err)
+						console.log('~~~~~~~~~~~~~~')
+					}
+					callback(result)
 				}
-				callback(result)
+			)
+		}else{
+			collection.remove({"_id": cardID})
+		}
+	},
 			}
 		)
 	}
