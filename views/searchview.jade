@@ -6,8 +6,14 @@ html(lang="en")
   body
     h1 Search Cards
     #container.col
+      if collectionSearched == "mtgcards"
+        h3 You are searching All Magic Cards
       else
+        h3 You are searching Your Collection
+
+      h5 Search Cards
       form(name="cardSearch", action="/card-view", method="post")
         label(name="Searchterm") Card Search
         input(type="text", name="searchterm")#searchtermfield
+        input(type="hidden", name="collection", value="#{collectionSearched}")
         input(type="submit", value="Search")
