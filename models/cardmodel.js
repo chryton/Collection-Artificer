@@ -42,7 +42,20 @@ module.exports = {
 			collection.remove({"_id": cardID})
 		}
 	},
+
+	viewAllCards: function(db, collectionToSearch, callback){
+		var collection = db.collection(collectionToSearch);
+		collection.find({}).sort({'name': 1}).toArray(function(err, results){
+			if (!err){
+				callback(err, results);
+			}else{
+				console.log('*****************************');
+				console.log('*****************************');
+				console.log('There was an error with viewing all cards:')
+				console.log(err);
+				console.log('*****************************');
+				console.log('*****************************');
 			}
-		)
+		})
 	}
 }
