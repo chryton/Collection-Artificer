@@ -16,18 +16,29 @@ module.exports = function (app) {
 		Ctrl.test(req, res);
 	});
 	app.get('/search', function(req, res){
-		// TODO: Add Jade var for search form target
+
 		var searchJadevars = {
 			pagetitle: "Awesome Aesop",
-			heading: "This is a smaller heading",
-			youAreUsingJade: true
+			collectionSearched: mtgDB,
+			backBtn: '/search'
 		}
 		return res.render('views/searchview.jade', searchJadevars);
 	});
 
+	app.get('/search-collection', function(req, res){
+		var searchJadevars = {
+			pagetitle: "Awesome Aesop",
+			collectionSearched: myCollection,
+			backBtn: '/search-collection'
+		}
+		return res.render('views/searchview.jade', searchJadevars);
+	})
+
 	app.post('/card-request', function(req, res){
 
-		var searchTerm = req.body.searchterm;
+		var searchTerm = req.body.searchterm,
+			collectionSearched = req.body.collection;
+
 
 		MongoClient.connect(url, function(err, db) {
 			SearchModel.findDocuments(db, {name: searchTerm}, 'mtgcards', function(err, results){
@@ -40,15 +51,16 @@ module.exports = function (app) {
 	app.post('/card-view', function(req, res){
 		console.log(req.body);
 
-		var searchTerm = req.body.searchterm;
+		var searchTerm = req.body.searchterm,
+			collectionSearched = req.body.collection;
 
 		MongoClient.connect(url, function(err, db) {
 			SearchModel.findDocuments(db, {name:  {'$regex': searchTerm}}, 'mtgcards', function(err, results){
 				console.log('---------');
-				var dumpCheck = false;
-				var data = "words"; // JSON.stringify(results);
-
-				var jadeVars = {};
+				var dumpCheck = false,
+					data = "words", // JSON.stringify(results);
+					jadeVars = {};
+				
 				jadeVars.cardResults = [];
 
 				for (var i = 0; i < results.length; i++){
@@ -83,35 +95,25 @@ module.exports = function (app) {
 
 		MongoClient.connect(url, function(err, db){
 
-			SearchModel.findDocumentsById(db, saveRequest.uuid, 'mtgcards', function(err, results){
+			SearchModel.findDocumentsById(db, saveRequest.uuid, mtgDB, function(err, results){
 				if (!err){
 
 					var dataToSave = results;
 					dataToSave[0].ownedPrinting = saveRequest.set;
 					dataToSave[0].numberOwned = saveRequest.qty;
 					
-					CardModel.saveData(db, dataToSave, 'mtg_collection', function(err, results){
+					CardModel.saveData(db, dataToSave, myCollection, function(err, results){
 
-						var savedJadevars = {
-							pagetitle: "Awesome Aesop",
-							heading: "Saved Data",
-							youAreUsingJade: true
+						var jadeVars = {
+							pagetitle: "Welcome to Card Artificer",
+							heading: "Card Saved!",
 						}
-						return res.render('views/searchview.jade', savedJadevars);
+						return res.render('views/welcome.jade', jadeVars);
 					})
 				}
 			});
 		})
 	});
-
-	app.get('/search-collection', function(req, res){
-		var searchJadevars = {
-			pagetitle: "Awesome Aesop",
-			heading: "This is a smaller heading",
-			youAreUsingJade: true
-		}
-		return res.render('views/searchview.jade', searchJadevars);
-	})
 
 	app.post('/collection-update', function(req, res){
 		console.log(req.body);
@@ -132,6 +134,6 @@ module.exports = function (app) {
 	})
 
 	app.get('/*', function(req, res) {
-		return res.status(401).json({'success': false, 'err': 'Unauthorized'});
+		return res.render('views/welcome.jade')
 	});
 };
