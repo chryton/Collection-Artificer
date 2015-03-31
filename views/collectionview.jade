@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+  
+  head
+    title!= pagetitle
+    include ./includes.jade
+
+  body
+    h1 Cards In Your Collection
+    #container.col
+
+      each card in cards
+        h3 #{card.name}
+        img(src='http://gatherer.wizards.com/Handlers/Image.ashx?name=#{card.name}&type=card&.jpg')
+        h5 #{card.numberOwned}
+        h6 #{card.ownedPrinting}

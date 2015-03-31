@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+
+  head
+    title Welcome to Collection Artificer
+    include ./includes.jade
+
+  body
+    h1 Collection Artificer
+
+    #container.col
+
+      if heading != ""
+        h4 #{heading}
+
+      h3 Your Options:
+
+      ul
+        li 
+          a(href="/search") Search Magic Cards
+        li 
+          a(href="/search-collection") Search Your Collection
+        li 
+          a(href="/view-collection") Collection View
