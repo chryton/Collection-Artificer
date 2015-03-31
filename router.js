@@ -122,6 +122,24 @@ module.exports = function (app) {
 			}
 		})
 
+	});
+
+	app.get('/view-collection', function(req, res){
+		console.log('Time to see all the cards in my collection');
+		MongoClient.connect(url, function(err, db){
+			if(!err){
+				CardModel.viewAllCards(db, myCollection, function(err, results){
+					if (!err){
+						var cardsInCollection = results,
+							jadeVars = {
+								cards: cardsInCollection,
+								pagetitle: 'Cards in your collection'
+							}
+						return res.render('views/collectionview.jade', jadeVars);
+					}
+				});
+			}
+		})
 	})
 
 	app.post('/dump', function(req, res){
