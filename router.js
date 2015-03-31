@@ -4,8 +4,13 @@ var Ctrl = require('./controllers/controller.js'),
 	Jade = require('jade'),
 	MongoClient = require('mongodb').MongoClient, 
 	assert = require('assert'),
-	url = 'mongodb://localhost:27017/mtg_cards';
+	url = 'mongodb://localhost:27017/mtg_cards',
+	// Make it easier to customize your database names by variablizing them.
+	mtgDB = 'mtgcards',
+	myCollection = 'mtg_collection'
  
+
+
 module.exports = function (app) {
 	app.get('/test', function(req, res){
 		Ctrl.test(req, res);
