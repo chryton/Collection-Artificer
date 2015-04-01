@@ -128,12 +128,19 @@ module.exports = function (app) {
 	});
 
 	app.post('/collection-update', function(req, res){
-		console.log(req.body);
+		var cardToUpdate = req.body.uuid,
+			qtyChange = req.body.qty;
+
+			console.log(cardToUpdate);
 
 		MongoClient.connect(url, function(err, db){
 			if (!err){
-				CardModel.updateCollection(db, cardToUpdate, myCollection, function(err, results){
-					// Add results rendering rules
+				CardModel.updateCollection(db, cardToUpdate, qtyChange, myCollection, function(err, results){
+					var jadeVars = {
+						pagetitle: "Welcome to Card Artificer",
+						heading: "Card Updated!",
+					}
+					return res.render('views/welcome.jade', jadeVars);
 				})
 			}
 		})
