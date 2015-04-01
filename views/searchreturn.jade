@@ -16,7 +16,7 @@ html(lang="en")
 
 					h1 #{card.cardName}
 					img(src='http://gatherer.wizards.com/Handlers/Image.ashx?name=#{card.cardName}&type=card&.jpg')
-					form(name="cardSearch", action="/collection-save", method="post")
+					form(name="cardSearch", action="#{searchTarget}", method="post")
 						label(name="Quantity") Qty
 						input(type="text" name="qty")
 						input(type="hidden" name="uuid" value='#{card.uuid}')

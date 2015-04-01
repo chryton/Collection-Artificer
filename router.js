@@ -75,10 +75,12 @@ module.exports = function (app) {
 				if (collectionSearched == myCollection){
 
 					jadeVars.backBtn = '/search-collection';
+					jadeVars.searchTarget = '/collection-update';
 
 				}else if(collectionSearched == mtgDB){
 
 					jadeVars.backBtn = '/search';
+					jadeVars.searchTarget = '/collection-save';
 
 				}else{
 
