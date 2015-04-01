@@ -8,13 +8,13 @@ module.exports = {
 			delete data[0][removeKey[i]];
 		}
 
-		console.log('Save Data:');
-		console.log(data);
-		console.log('~~~~~~~/~^*()*^~/~~~~~~~~')
+		console.log('Data saving...');
 
 		collection.insert(data, function(err, result){
 			callback(err, result);
 		});
+
+		console.log('Data saved!');
 
 	},
 
@@ -51,10 +51,8 @@ module.exports = {
 			}else{
 				console.log('*****************************');
 				console.log('*****************************');
-				console.log('There was an error with viewing all cards:')
+				console.log('There was an error with viewing all cards:');
 				console.log(err);
-				console.log('*****************************');
-				console.log('*****************************');
 			}
 		})
 	}
