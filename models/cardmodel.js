@@ -20,26 +20,41 @@ module.exports = {
 
 	updateCollection: function(db, cardID, cardData, collectionToSearch, callback){
 		var collection = db.collection(collectionToSearch);
-		if (cardData.qty > 0){
+
+		var ObjectID = require('mongodb').ObjectID;
+		var cardID = new ObjectID(cardID);
+
+
+		if (cardData > 0){
+			console.log('Updating data...')
 			collection.update(
 				{"_id" : cardID},
 				{
 					$set: {
-						// This should be the card schema that we want saved no matter what
+						numberOwned: cardData
 					}
 				}, 
 				function(err, result){
 					if(err){
-						console.log('~~~~~~~~~~~~~~')
-						console.log('Update Error:')
-						console.log(err)
-						console.log('~~~~~~~~~~~~~~')
+						console.log('~~~~~~~~~~~~~~');
+						console.log('Update Error:');
+						console.log(err);
+						console.log('~~~~~~~~~~~~~~');
 					}
-					callback(result)
+					callback(err, result);
 				}
 			)
 		}else{
-			collection.remove({"_id": cardID})
+			console.log('Deleting Data...')
+			collection.remove({"_id": cardID}, function(err, result){
+				if(!err){
+					console.log('~~~~~~~~~~~~~~');
+					console.log('Remove Error:');
+					console.log(err);
+					console.log('~~~~~~~~~~~~~~');
+				}
+				callback(err, result);
+			})
 		}
 	},
 
