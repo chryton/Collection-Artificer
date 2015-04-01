@@ -10,7 +10,9 @@ html(lang="en")
     #container.col
 
       each card in cards
-        h3 #{card.name}
-        img(src='http://gatherer.wizards.com/Handlers/Image.ashx?name=#{card.name}&type=card&.jpg')
-        h5 #{card.numberOwned}
-        h6 #{card.ownedPrinting}
+        .card
+          img(src='http://gatherer.wizards.com/Handlers/Image.ashx?name=#{card.name}&type=card&.jpg')
+          .card-info
+            h3 #{card.name}
+            h6 #{card.ownedPrinting}
+            h6 Owned: #{card.numberOwned}
